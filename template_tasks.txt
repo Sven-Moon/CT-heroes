@@ -1,0 +1,6 @@
+1. Review modules 
+  1.1 For any module removed remove 
+  from .auth.routes import auth within __init__.py
+2. Templates
+  2.1 Templates make use of Bootstrap
+  
