@@ -1,17 +1,15 @@
 {% extends 'components/layout.html' %}
 
 {% block title %}
-My Heroes
+Hero Detail
 {% endblock title %}
 
 {% block header %}
-My Heroes
+{{ hero. name }}
 {% endblock header %}
 
 {% block main_content %}
-<div class="hero-container">
-  {% for hero in heroes %}
-  <div class="mb-3 hero-card">{% include 'components/hero_card_thumb.html' %}</div>
-  {% endfor %}
+<div class="center-center">
+  <div class="mb-3 hero-card">{% include 'components/hero_card.html' %}</div>
 </div>
 {% endblock main_content %}

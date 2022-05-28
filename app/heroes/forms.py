@@ -7,5 +7,5 @@ class HeroForm(FlaskForm):
     super_power = StringField('Super Power', validators=[DataRequired()])
     description = StringField('Description',validators=[Length(min=0,max=200)])
     comics_appeared_in = IntegerField('Number of Comics Appeared In', validators=[NumberRange(min=0)])
-    image = StringField
+    image = StringField('Image Url')
     submit = SubmitField('Create Hero')

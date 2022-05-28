@@ -1,0 +1,6 @@
+<a class="card" style="width: 18rem;" href="{{ url_for('heroes.hero_detail', id=hero.id) }}">
+  <img src="{{ hero.image }}" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">{{ hero.name|title}}</h5>
+  </div>
+</a>

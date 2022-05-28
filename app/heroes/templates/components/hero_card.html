@@ -1,0 +1,18 @@
+<div class="card" style="width: 18rem;">
+  <img src="{{ hero.image }}" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">{{ hero.name|title}}</h5>
+    <p class="card-text">Bio: {{ hero.description }}
+    </p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">Super Power: {{ hero.super_power }}</li>
+    <li class="list-group-item">Seen in {{ hero.comics_appeared_in }} comics</li>
+  </ul>
+  {% if hero.owner != current_user.id %}
+  <div class="card-body">
+    <a href="#" class="card-link">Contributed by: {{ owner.username }}</a>
+    <a href="#" class="card-link btn btn-sm btn-info">Copy to My Collection</a>
+  </div>
+  {% endif %}
+</div>

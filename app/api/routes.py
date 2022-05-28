@@ -29,12 +29,15 @@ def get_hero(name):
 
 @api.route('hero/create', methods=['POST'])
 @token_required
-def create_hero():
-    try:
-        new_hero = r.get_json()
-        h = Hero(**new_hero)
-    except:
-        return jsonify({'error': 'improper request or body data'}), 400
+def create_hero(new_hero):
+    if new_hero:
+        h = new_hero
+    else:
+        try:
+            new_hero = r.get_json()
+            h = Hero(**new_hero)
+        except:
+            return jsonify({'error': 'improper request or body data'}), 400
     try:
         db.session.add(h)
         db.session.commit()
