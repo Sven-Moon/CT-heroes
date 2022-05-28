@@ -3,7 +3,7 @@ import secrets
 from uuid import uuid4
 import uuid
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager, UserMixin
+from flask_login import LoginManager, UserMixin, current_user
 from sqlalchemy import ForeignKey
 from werkzeug.security import generate_password_hash
 
@@ -51,16 +51,14 @@ class Hero(db.Model):
     owner = db.Column(db.String(60), db.ForeignKey("user.id"))
     image = db.Column(db.String(200), default="https://res.cloudinary.com/sventerprise/image/upload/e_improve,w_300,h_600,c_thumb,g_auto/v1653685149/CT-Random/Mystery-Hero_vydesf.png")
     
-    def __init__(self,**kwargs) -> None:
+    def __init__(self,d) -> None:
         self.id = str(uuid.uuid4())
-        for k in kwargs:
-            setattr(self,k,kwargs[k])
-        # self.name = d.get['name']
-        # self.super_power = d.get['super_power']
-        # self.comics_appeared_in = d.get['comics_appeared_in']
-        # self.description = d.get['comics_appeared_in']
-        # self.owner = d.get['owner']
-        # self.image = d.get['image']
+        self.name = d.get('name')
+        self.super_power = d.get('super_power')
+        self.comics_appeared_in = d.get('comics_appeared_in')
+        self.description = d.get('comics_appeared_in')
+        self.owner = d.get('owner', current_user.id)
+        self.image = d.get('image')
         
     def update(self,d):
         for k,v in d.items():

@@ -1,11 +1,11 @@
 {% extends 'components/layout.html' %}
 
 {% block title %}
-New Hero
+Edit Hero
 {% endblock title %}
 
 {% block header %}
-Enter New Hero
+Edit Hero
 {% endblock header %}
 
 {% block main_content %}
@@ -21,7 +21,7 @@ Enter New Hero
       {% endfor %}
     </div>
     {% else %}
-    {{ form.name(class="form-control form-control-lg") }}
+    {{ form.name(class="form-control form-control-lg", value=hero.name) }}
     {% endif %}
   </div>
   <div class="form-group" id="input_hero_super_power">
@@ -34,7 +34,7 @@ Enter New Hero
       {% endfor %}
     </div>
     {% else %}
-    {{ form.super_power(class="form-control form-control-lg") }}
+    {{ form.super_power(class="form-control form-control-lg", value=hero.super_power) }}
     {% endif %}
   </div>
   <div class="form-group" id="input_hero_description">
@@ -47,10 +47,10 @@ Enter New Hero
       {% endfor %}
     </div>
     {% else %}
-    {{ form.description(class="form-control form-control-lg") }}
+    {{ form.description(class="form-control form-control-lg", value=hero.description) }}
     {% endif %}
   </div>
-  <div class="form-group" id="input_hero_image">
+  <div class="form-group" id="image">
     {{ form.image.label(class="form-control-label") }}
     {% if form.image.errors %}
     {{ form.image(class="form-control form-control-lg is-invalid") }}
@@ -60,7 +60,7 @@ Enter New Hero
       {% endfor %}
     </div>
     {% else %}
-    {{ form.image(class="form-control form-control-lg") }}
+    {{ form.image(class="form-control form-control-lg", value=hero.image) }}
     {% endif %}
   </div>
   <div class="form-group" id="input_hero_comics_appeared_in">
@@ -73,9 +73,10 @@ Enter New Hero
       {% endfor %}
     </div>
     {% else %}
-    {{ form.comics_appeared_in(class="form-control form-control-lg") }}
+    {{ form.comics_appeared_in(class="form-control form-control-lg",
+    value=hero.comics_appeared_in) }}
     {% endif %}
   </div>
-  {{ form.create(class="btn btn-block btn-info") }}
+  {{ form.update(class="btn btn-block btn-info") }}
 </form>
 {% endblock main_content %}
