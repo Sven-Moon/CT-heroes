@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
-    <div class="btn w-100">My Heros</div>
-    <div class="btn w-100">Browse Heros</div>
-    <div class="btn w-100">Random Hero</div>
+    <a class="btn w-100" href="{{ url_for('heroes.my_heroes') }}">My Heros</a>
+    <a class="btn w-100" href="{{ url_for('heroes.browse') }}">Browse Heros</a>
+    <a class="btn w-100" href="{{ url_for('heroes.browse') }}">Random Hero</a>
   </div>
 </div>

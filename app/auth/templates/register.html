@@ -1,10 +1,10 @@
-{% extends 'static/layout.html' %}
+{% extends 'components/layout.html' %}
 
 {% block title %}
 Register
 {% endblock title %}
 
-{% block content %}
+{% block main_content %}
 <form method="POST">
   {{ form.hidden_tag() }}
   <div class="form-group">
@@ -61,4 +61,4 @@ Register
   </div>
   {{ form.submit(class="btn btn-block btn-info") }}
 </form>
-{% endblock content %}
+{% endblock main_content %}

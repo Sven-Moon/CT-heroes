@@ -1,10 +1,11 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, IntegerField
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, Length, NumberRange
 
 class HeroForm(FlaskForm):    
     name = StringField('Name', validators=[DataRequired()])
     super_power = StringField('Super Power', validators=[DataRequired()])
-    description = StringField('Description')
-    comics_appeared_in = IntegerField('Number of Comics Appeared In')
-    submit = SubmitField()
+    description = StringField('Description',validators=[Length(min=0,max=200)])
+    comics_appeared_in = IntegerField('Number of Comics Appeared In', validators=[NumberRange(min=0)])
+    image = StringField
+    submit = SubmitField('Create Hero')

@@ -1,0 +1,68 @@
+{% extends 'static/components/layout.html' %}
+
+{% block title %}
+New Hero
+{% endblock title %}
+
+{% block header %}
+Enter New Hero
+{% endblock header %}
+
+{% block main_content %}
+<form method="POST">
+  {{ form.hidden_tag() }}
+  <div class="form-group" id="input_hero_name">
+    {{ form.name.label(class="form-control-label") }}
+    {% if form.name.errors %}
+    {{ form.name(class="form-control form-control-lg is-invalid") }}
+    <div class="invalid-feedback">
+      {% for error in form.name.errors %}
+      <span>{{ error }}</span>
+      {% endfor %}
+    </div>
+    {% else %}
+    {{ form.name(class="form-control form-control-lg") }}
+    {% endif %}
+  </div>
+  <div class="form-group" id="input_hero_super_power">
+    {{ form.super_power.label(class="form-control-label") }}
+    {% if form.super_power.errors %}
+    {{ form.super_power(class="form-control form-control-lg is-invalid") }}
+    <div class="invalid-feedback">
+      {% for error in form.super_power.errors %}
+      <span>{{ error }}</span>
+      {% endfor %}
+    </div>
+    {% else %}
+    {{ form.super_power(class="form-control form-control-lg") }}
+    {% endif %}
+  </div>
+  <div class="form-group" id="input_hero_description">
+    {{ form.description.label(class="form-control-label") }}
+    {% if form.description.errors %}
+    {{ form.description(class="form-control form-control-lg is-invalid") }}
+    <div class="invalid-feedback">
+      {% for error in form.description.errors %}
+      <span>{{ error }}</span>
+      {% endfor %}
+    </div>
+    {% else %}
+    {{ form.description(class="form-control form-control-lg") }}
+    {% endif %}
+  </div>
+  <div class="form-group" id="input_hero_comics_appeared_in">
+    {{ form.comics_appeared_in.label(class="form-control-label") }}
+    {% if form.comics_appeared_in.errors %}
+    {{ form.comics_appeared_in(class="form-control form-control-lg is-invalid") }}
+    <div class="invalid-feedback">
+      {% for error in form.comics_appeared_in.errors %}
+      <span>{{ error }}</span>
+      {% endfor %}
+    </div>
+    {% else %}
+    {{ form.comics_appeared_in(class="form-control form-control-lg") }}
+    {% endif %}
+  </div>
+  {{ form.submit(class="btn btn-block btn-info") }}
+</form>
+{% endblock main_content %}
