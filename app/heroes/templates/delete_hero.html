@@ -1,0 +1,40 @@
+{% extends 'components/layout.html' %}
+
+{% block title %}
+Delete Hero
+{% endblock title %}
+
+{% block header %}
+Delete Hero - {{ hero. name }}
+{% endblock header %}
+
+{% block main_content %}
+<form action="" method="post">
+  <div class="form-group">
+    {{ form.hidden_tag() }}
+    <div class="card-body">
+      <h3 class="card-text">Really delete {{ hero.name }}?
+      </h3>
+      <h5>To delete for good, type in your soon-to-be ex-hero's name, <b>{{hero.name}}</b> and press <b>Delete</b></h5>
+    </div>
+    {% if form.name.errors %}
+    {{ form.name(class="form-control-label form-control-lg is-invalid", placeholder=hero.name) }}
+    <div class="invalid-feedback">
+      {% for error in form.name.errors %}
+      <span>{{ error }}</span>
+      {% endfor %}
+    </div>
+    {% else %}
+    {{ form.name(class="form-control-label form-control-lg", placeholder=hero.name) }}
+    {% endif %}
+  </div>
+  {{ form.submit(class="btn btn-danger") }}
+  {{ form.confirm(class='d-none',value=hero.name) }}
+  <a class="btn btn-info" href="{{ url_for('heroes.my_heroes') }}">Cancel</a>
+</form>
+<div class="center-center">
+  <div class="mb-3 hero-card">
+    {% include 'components/hero_card_thumb.html' %}
+  </div>
+</div>
+{% endblock main_content %}

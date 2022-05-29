@@ -31,8 +31,8 @@ Edit Hero
     <div class="invalid-feedback">
       {% for error in form.super_power.errors %}
       <span>{{ error }}</span>
-      {% endfor %}
     </div>
+    {% endfor %}
     {% else %}
     {{ form.super_power(class="form-control form-control-lg", value=hero.super_power) }}
     {% endif %}

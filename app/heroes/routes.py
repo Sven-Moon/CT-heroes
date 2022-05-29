@@ -1,5 +1,5 @@
 from flask import Blueprint, flash, jsonify, redirect, render_template, request, url_for
-from .forms import HeroForm
+from .forms import DeleteHeroForm, HeroForm
 from app.models import Hero, User, db
 from flask_login import current_user, login_required
 
@@ -7,6 +7,7 @@ heroes = Blueprint('heroes',__name__, static_folder='static', url_prefix='/heroe
 
 
 @heroes.route('/create', methods=['GET','POST'])
+@login_required
 def create_hero():
     form = HeroForm()
     if request.method == 'POST':
@@ -21,13 +22,10 @@ def create_hero():
         return redirect(url_for('heroes.hero_detail',id=new_hero.id))
     return render_template('create_hero.html',form=form)
 
-@heroes.route('/edit/<string:id>', methods=['GET','POST'])
+@heroes.route('/hero/<string:id>/edit', methods=['GET','POST'])
+@login_required
 def edit_hero(id):    
-    print(id)
     hero = Hero.query.get(id)
-    print(hero)
-    hero_data=hero.to_dict()
-    print(hero_data)
     form = HeroForm()
     if request.method == 'POST':
         form_hero = request.form.to_dict()
@@ -36,16 +34,20 @@ def edit_hero(id):
         hero.update(form_hero)
         try:
             db.session.commit()
-            flash(f'Hero added: {form_hero.name}', 'success')
+            print('fine')
+            flash(f'Hero successfully edited: {form.name.data}', 'success')
         except:
-            flash('Hero not added: Server Error','danger')
+            flash(f'Hero NOT edited: Server Error {form.name.data}','danger')
         return redirect(url_for('heroes.hero_detail',id=hero.id))
     return render_template('edit_hero.html',form=form,hero=hero)
 
 @heroes.route('/')
 @heroes.route('/browse', methods=['GET'])
 def browse():
-    heroes = Hero.query.filter(Hero.owner!=current_user.id).all()
+    if not current_user.is_authenticated:
+        heroes = Hero.query.all()
+    else: 
+        heroes = Hero.query.filter(Hero.owner!=current_user.id).all()
     return render_template('browse.html', heroes=heroes)
 
 @heroes.route('/myheroes', methods=['GET'])
@@ -56,7 +58,7 @@ def my_heroes():
         return render_template('my_heroes.html', heroes=heroes)
     redirect(url_for('not_found_404'))
 
-@heroes.route('/hero-detail/<string:id>', methods=['GET'])
+@heroes.route('/hero/<string:id>/detail', methods=['GET'])
 @login_required
 def hero_detail(id):    
     hero = Hero.query.get(id)
@@ -65,7 +67,17 @@ def hero_detail(id):
         return redirect(url_for('not_found_404'))
     return render_template('detail.html', hero=hero,owner=owner)
 
-@heroes.route('/hero/delete/<string:id>', methods=['DELETE'])
-def delete_hero(id):    
-    db.session.delete(id)
-    return render_template('my_heroes.html')
+@heroes.route('/hero/<string:id>/delete', methods=['GET','POST'])
+@login_required
+def delete_hero(id):
+    hero = Hero.query.get(id)
+    form = DeleteHeroForm()
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            db.session.delete(hero)
+            db.session.commit()
+            flash('Hero has been deleted!', 'info')        
+            return redirect(url_for('heroes.my_heroes'))
+        else:
+            flash('Hero NOT deleted.', 'info')    
+    return render_template('delete_hero.html',hero=hero,form=form)
