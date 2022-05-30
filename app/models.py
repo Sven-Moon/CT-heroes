@@ -50,7 +50,6 @@ class Hero(db.Model):
     date_created = db.Column(db.DateTime, default=datetime.utcnow())
     owner = db.Column(db.String(60), db.ForeignKey("user.id"))
     image = db.Column(db.String(200), default="https://res.cloudinary.com/sventerprise/image/upload/e_improve,w_300,h_600,c_thumb,g_auto/v1653685149/CT-Random/Mystery-Hero_vydesf.png")
-    
     def __init__(self,d) -> None:
         self.id = str(uuid.uuid4())
         self.name = d.get('name')
@@ -67,7 +66,3 @@ class Hero(db.Model):
                   
     def to_dict(self):  
         return {k:v for k,v in vars(self).items() if k != '_sa_instance_state'}
-    def init_from_form(self,d):
-        for k,v in d:
-            if self.__getattribute__(k):
-                setattr(self,k,v)
